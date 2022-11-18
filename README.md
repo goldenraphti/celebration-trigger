@@ -18,6 +18,27 @@ npm i celebration-trigger
 <celebration-trigger></celebration-trigger>
 ```
 
+## Styling
+
+The buttons backgrounds & borders color is editable via the `--bg-color` CSS custom property.
+It should be passed as "R G B", with no `,` between each number. It is then used inside the celebration-trigger web-component (for example) this way for rgba:
+
+```css
+background: rgba(var(--bg-color) / 0.5);
+```
+
+and from your code you can use it this way:
+
+```html
+<celebration-trigger style="--bg-color: 99 245 170;"></celebration-trigger>
+```
+
+Custom-rpoperties get through web-components encapsulation.
+Their specificity increase with the element proximity. The closer the parent element it has been set on, the more the priority.
+If the custom property is set on both the `<body>` and the parent element, the parent element will take precedence. Therefore to enforce the color you can set it on the `<celebration-trigger>` element itself.
+
+The default value is: `255 192 203`
+
 ## Linting and formatting
 
 To scan the project for linting and formatting errors, run
@@ -78,7 +99,6 @@ To run a local development server that serves the basic demo located in `demo/in
 
 - [ ] add tests
 - [ ] provide types (https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2)[https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2]
-- [ ] make accent-color customizable via CSS custom-properties
 - [ ] generate custom event on sound play, to be listened for by js frameworks for example (or whatever, even simple eventListener)
 - [ ] add confetti with emojis
 - [ ] add props for letting dev deciding which emojis to offer

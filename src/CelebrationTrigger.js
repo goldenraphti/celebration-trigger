@@ -5,15 +5,15 @@ export class CelebrationTrigger extends LitElement {
     return css`
       :host {
         --pink: 255 192 203;
-        --bg-color: var(--pink);
+        --default-bg-color: var(--pink);
       }
       button {
         padding: 20px;
         font-size: 1.5em;
         border-radius: 100%;
         border: none;
-        outline: solid 1px rgb(var(--bg-color));
-        background: rgba(var(--bg-color) / 0.3);
+        outline: solid 1px rgb(var(--bg-color, var(--default-bg-color)));
+        background: rgba(var(--bg-color, var(--default-bg-color)) / 0.3);
         transition: 0.05s ease-in-out;
         margin: 3px;
       }
@@ -24,11 +24,11 @@ export class CelebrationTrigger extends LitElement {
       }
 
       button:active {
-        background: rgba(var(--bg-color) / 0.5);
+        background: rgba(var(--bg-color, var(--default-bg-color)) / 0.5);
       }
 
       button.opened {
-        background: rgba(var(--bg-color) / 0.8);
+        background: rgba(var(--bg-color, var(--default-bg-color)) / 0.8);
       }
 
       button:focus-visible {
