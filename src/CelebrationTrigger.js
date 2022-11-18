@@ -30,6 +30,10 @@ export class CelebrationTrigger extends LitElement {
       button.opened {
         background: rgba(var(--bg-color) / 0.8);
       }
+
+      button:focus-visible {
+        outline-width: 2px;
+      }
     `;
   }
 
@@ -54,6 +58,9 @@ export class CelebrationTrigger extends LitElement {
           'https://cdn.staticcrate.com/stock-hd/audio/soundscrate-air-horn-2.mp3',
       },
     ];
+    this.addEventListener('keyup', e =>
+      e.key === 'Escape' && this.widgetOpened ? this._displayWidget() : null
+    );
   }
 
   _displayWidget() {
@@ -68,7 +75,8 @@ export class CelebrationTrigger extends LitElement {
   }
 
   render() {
-    return html`<button
+    return html`
+      <button
         @click="${this._displayWidget}"
         class="${this.widgetOpened ? 'opened' : null}"
       >
@@ -79,6 +87,7 @@ export class CelebrationTrigger extends LitElement {
             <button @click="${() => this._playSound('airHorn')}">📯</button>
             <button @click="${() => this._playSound('applause')}">👏</button>
           </div>`
-        : null} `;
+        : null}
+    `;
   }
 }

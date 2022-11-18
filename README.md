@@ -76,13 +76,14 @@ To run a local development server that serves the basic demo located in `demo/in
 
 ## ROADMAP
 
-- [] add tests
-- [] provide types (https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2)[https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2]
-- [] make accent-color customizable via CSS custom-properties
-- [] generate custom event on sound play, to be listened for by js frameworks for example (or whatever, even simple eventListener)
-- [] add confetti with emojis
-- [] add props for letting dev deciding which emojis to offer
-- [] add props for adding support for images in confetti
-- [] create event emitting data i.e. name & photo
-- [] improve style
-- [] make React wrapper if necessary ?
+- [ ] add tests
+- [ ] provide types (https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2)[https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2]
+- [ ] make accent-color customizable via CSS custom-properties
+- [ ] generate custom event on sound play, to be listened for by js frameworks for example (or whatever, even simple eventListener)
+- [ ] add confetti with emojis
+- [ ] add props for letting dev deciding which emojis to offer
+- [ ] add props for adding support for images in confetti
+- [ ] create event emitting data i.e. name & photo
+- [ ] improve style
+- [ ] style animation when display start from root button, translate & scale & opacity bouncy
+- [ ] make React wrapper if necessary ?
