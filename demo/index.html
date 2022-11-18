@@ -6,6 +6,9 @@
       body {
         background: #fafafa;
       }
+      :root {
+        --accent-color: 155 52 10;
+      }
     </style>
   </head>
   <body>
@@ -16,7 +19,14 @@
       import '../celebration-trigger.js';
 
       render(
-        html` <celebration-trigger> </celebration-trigger> `,
+        html`
+          <celebration-trigger
+            style="--bg-color:
+            99
+            245
+            170;"
+          ></celebration-trigger>
+        `,
         document.querySelector('#demo')
       );
     </script>

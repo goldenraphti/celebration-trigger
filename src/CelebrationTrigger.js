@@ -58,7 +58,7 @@ export class CelebrationTrigger extends LitElement {
           'https://cdn.staticcrate.com/stock-hd/audio/soundscrate-air-horn-2.mp3',
       },
     ];
-    this.addEventListener('keyup', e =>
+    document.addEventListener('keyup', e =>
       e.key === 'Escape' && this.widgetOpened ? this._displayWidget() : null
     );
   }
