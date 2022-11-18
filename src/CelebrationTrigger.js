@@ -42,10 +42,29 @@ export class CelebrationTrigger extends LitElement {
   constructor() {
     super();
     this.widgetOpened = false;
+    this.soundsList = [
+      {
+        name: 'applause',
+        urlOnline:
+          'https://soundbible.com/mp3/SMALL_CROWD_APPLAUSE-Yannick_Lemieux-1268806408.mp3',
+      },
+      {
+        name: 'airHorn',
+        urlOnline:
+          'https://cdn.staticcrate.com/stock-hd/audio/soundscrate-air-horn-2.mp3',
+      },
+    ];
   }
 
   _displayWidget() {
     this.widgetOpened = !this.widgetOpened;
+  }
+
+  _playSound(soundType) {
+    const clickedSound = new Audio(
+      this.soundsList.find(snd => snd.name === soundType).urlOnline
+    );
+    clickedSound.play();
   }
 
   render() {
@@ -57,9 +76,8 @@ export class CelebrationTrigger extends LitElement {
       </button>
       ${this.widgetOpened
         ? html`<div>
-            <button>🎊</button>
-            <button>📯</button>
-            <button>👏</button>
+            <button @click="${() => this._playSound('airHorn')}">📯</button>
+            <button @click="${() => this._playSound('applause')}">👏</button>
           </div>`
         : null} `;
   }
