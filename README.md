@@ -2,6 +2,12 @@
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
+## Demos
+
+You can see a serie of examples on Codepen:
+
+[https://codepen.io/collection/BNmbyz](https://codepen.io/collection/BNmbyz)
+
 ## Installation
 
 ```bash
@@ -10,12 +16,28 @@ npm i celebration-trigger
 
 ## Usage
 
+### with local install (using npm/yarn/pnpm)
+
 ```html
 <script type="module">
   import 'celebration-trigger/celebration-trigger.js';
 </script>
 
 <celebration-trigger></celebration-trigger>
+```
+
+### via CDN
+
+```html
+<body>
+  <celebration-trigger style="--bg-color: 10 100 200;"></celebration-trigger>
+</body>
+```
+
+```js
+import { CelebrationTrigger } from 'https://cdn.skypack.dev/celebration-trigger';
+
+window.customElements.define('celebration-trigger', CelebrationTrigger);
 ```
 
 ## Styling
@@ -95,10 +117,10 @@ npm start
 
 To run a local development server that serves the basic demo located in `demo/index.html`
 
-## ROADMAP
+## Roadmap
 
 - [ ] add tests
-- [ ] provide types (https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2)[https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2]
+- [ ] provide types [https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2](https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2)
 - [ ] generate custom event on sound play, to be listened for by js frameworks for example (or whatever, even simple eventListener)
 - [ ] add confetti with emojis
 - [ ] add props for letting dev deciding which emojis to offer
