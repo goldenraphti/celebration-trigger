@@ -1,4 +1,7 @@
 import { html, css, LitElement } from 'lit';
+import JSConfetti from 'js-confetti';
+
+const jsConfetti = new JSConfetti();
 
 export class CelebrationTrigger extends LitElement {
   static get styles() {
@@ -40,6 +43,8 @@ export class CelebrationTrigger extends LitElement {
   static get properties() {
     return {
       widgetOpened: { type: Boolean },
+      emojisDisplayed: { type: Boolean },
+      emojis: { type: Array, reflect: true },
     };
   }
 
@@ -61,6 +66,8 @@ export class CelebrationTrigger extends LitElement {
     document.addEventListener('keyup', e =>
       e.key === 'Escape' && this.widgetOpened ? this._displayWidget() : null
     );
+    this.emojis = ['🥳', '🔥'];
+    this.emojisDisplayed = false;
   }
 
   _displayWidget() {
@@ -72,6 +79,20 @@ export class CelebrationTrigger extends LitElement {
       this.soundsList.find(snd => snd.name === soundType).urlOnline
     );
     clickedSound.play();
+  }
+
+  _displayEmojis() {
+    this.emojisDisplayed = !this.emojisDisplayed;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  _displayConfettis() {
+    jsConfetti.addConfetti();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  _displayCustomEmojiConfetti(emoji) {
+    jsConfetti.addConfetti({ emojis: [emoji] });
   }
 
   render() {
@@ -86,6 +107,24 @@ export class CelebrationTrigger extends LitElement {
         ? html`<div>
             <button @click="${() => this._playSound('airHorn')}">📯</button>
             <button @click="${() => this._playSound('applause')}">👏</button>
+            <button @click="${this._displayConfettis}">🎉</button>
+            ${this.emojis?.length
+              ? html` <button @click="${this._displayEmojis}">🙂</button>
+                  ${this.emojisDisplayed
+                    ? html`<div>
+                        ${this.emojis.map(
+                          emoji => html`
+                            <button
+                              @click="${() =>
+                                this._displayCustomEmojiConfetti(emoji)}"
+                            >
+                              ${emoji}
+                            </button>
+                          `
+                        )}
+                      </div>`
+                    : null}`
+              : null}
           </div>`
         : null}
     `;

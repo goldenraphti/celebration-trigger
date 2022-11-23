@@ -122,8 +122,7 @@ To run a local development server that serves the basic demo located in `demo/in
 - [ ] add tests
 - [ ] provide types [https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2](https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2)
 - [ ] generate custom event on sound play, to be listened for by js frameworks for example (or whatever, even simple eventListener)
-- [ ] add confetti with emojis
-- [ ] add props for letting dev deciding which emojis to offer
+- [ ] everytime trigger a 3rd level then the 2nd level should become a "back", so not everything display at once
 - [ ] add props for adding support for images in confetti
 - [ ] create event emitting data i.e. name & photo
 - [ ] improve style

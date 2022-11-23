@@ -3,7 +3,7 @@
   "description": "Webcomponent celebration-trigger following open-wc recommendations",
   "license": "MIT",
   "author": "Raphaël Ferrand",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "module": "index.js",
   "type": "module",
@@ -18,6 +18,7 @@
     "storybook:build": "npm run analyze -- --exclude dist && build-storybook"
   },
   "dependencies": {
+    "js-confetti": "^0.11.0",
     "lit": "^2.0.2"
   },
   "devDependencies": {
