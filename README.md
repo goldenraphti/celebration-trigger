@@ -61,6 +61,41 @@ If the custom property is set on both the `<body>` and the parent element, the p
 
 The default value is: `255 192 203`
 
+## Properties
+
+### Confetti canon
+
+You can disable the confetti canon (and by extension the custom-emojis confetti canon) using the boolean attribute "confettiDisabled", as such:
+
+```html
+<celebration-trigger confettiDisabled="true"></celebration-trigger>
+```
+
+Default is false. If you want to enable it then do not set the attribute. Like all boolean attribute, its mere presence set the value to `true`. Therefore `confettiDisabled="false"` will still pass the value `true` to the `confettiDisabled` property (just like the required or disabled standard attributes).
+
+### Emojis
+
+You can customize the emojis thrown as confetti canon on the page, by passing an array of emojis strings.
+As such:
+
+```html
+<celebration-trigger emojis='["🎈","🎀","🦺"]'></celebration-trigger>
+```
+
+If no emojis are passed, and the confetti canon is not disabled, then those are the default emojis proposed to the user: 🥳 & 🔥.
+
+## Events dispatched
+
+When the user triggers a confetti canon a custom event is dispatched. Name of the event is `confetti`. It will bubble up. And it passes the type of confetti triggered (standard confetti = "confetti", and for emojis it will pass the emoji string triggered), via the `confettiType` property inside the `detail` property. You can listen to it this way:
+
+```js
+document.addEventListener('confetti', e =>
+  console.log('confetti event', e, e.detail.confettiType)
+);
+```
+
+And you can use the "detail" property on the event object passed as argument by the event listener.
+
 ## Linting and formatting
 
 To scan the project for linting and formatting errors, run
@@ -121,10 +156,6 @@ To run a local development server that serves the basic demo located in `demo/in
 
 - [ ] add tests
 - [ ] provide types [https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2](https://dev.to/open-wc/generating-typescript-definition-files-from-javascript-5bp2)
-- [ ] generate custom event on sound play, to be listened for by js frameworks for example (or whatever, even simple eventListener)
-- [ ] everytime trigger a 3rd level then the 2nd level should become a "back", so not everything display at once
-- [ ] add props for adding support for images in confetti
-- [ ] create event emitting data i.e. name & photo
-- [ ] improve style
+- [ ] improve perf (i.e. confetti library only loaded if not disabling the confettis, sounds could be loaded only when start displaying the internal buttons)
 - [ ] style animation when display start from root button, translate & scale & opacity bouncy
 - [ ] make React wrapper if necessary ?

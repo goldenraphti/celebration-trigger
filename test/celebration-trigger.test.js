@@ -4,25 +4,23 @@ import { fixture, expect } from '@open-wc/testing';
 import '../celebration-trigger.js';
 
 describe('CelebrationTrigger', () => {
-  it('has a default title "Hey there" and counter 5', async () => {
+  it('on init only the widget initial button is displayed', async () => {
     const el = await fixture(html`<celebration-trigger></celebration-trigger>`);
-
-    expect(el.title).to.equal('Hey there');
-    expect(el.counter).to.equal(5);
-  });
-
-  it('increases the counter on button click', async () => {
-    const el = await fixture(html`<celebration-trigger></celebration-trigger>`);
+    await expect(el.shadowRoot.querySelectorAll('button')).to.equal(1);
     el.shadowRoot.querySelector('button').click();
-
-    expect(el.counter).to.equal(6);
+    await expect(el.shadowRoot.querySelectorAll('button')).greaterThan(1);
   });
 
-  it('can override the title via attribute', async () => {
-    const el = await fixture(html`<celebration-trigger title="attribute title"></celebration-trigger>`);
+  it('when click on custom emoji display btn it display the new custom emojis and hides the 2nd level buttons', async () => {});
 
-    expect(el.title).to.equal('attribute title');
+  it('can override the emojis via attribute', async () => {
+    // const el = await fixture(
+    //   html`<celebration-trigger title="attribute title"></celebration-trigger>`
+    // );
+    // expect(el.title).to.equal('attribute title');
   });
+
+  it('when click on the confetti trigger button it emits an event up', async () => {});
 
   it('passes the a11y audit', async () => {
     const el = await fixture(html`<celebration-trigger></celebration-trigger>`);

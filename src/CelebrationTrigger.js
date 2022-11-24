@@ -19,6 +19,7 @@ export class CelebrationTrigger extends LitElement {
         background: rgba(var(--bg-color, var(--default-bg-color)) / 0.3);
         transition: 0.05s ease-in-out;
         margin: 3px;
+        aspect-ratio: 1;
       }
 
       button:is(:hover, :active, :focus) {
@@ -30,12 +31,29 @@ export class CelebrationTrigger extends LitElement {
         background: rgba(var(--bg-color, var(--default-bg-color)) / 0.5);
       }
 
-      button.opened {
+      button.active {
         background: rgba(var(--bg-color, var(--default-bg-color)) / 0.8);
       }
 
       button:focus-visible {
         outline-width: 2px;
+      }
+
+      .second-level {
+        max-height: 100px;
+        transition: scale ease-in-out 0.5s, opacity ease-in-out 0.2s,
+          visibility ease-in-out 0.2s, transform ease-in-out 0.2s,
+          max-height ease-in-out 0.2s;
+      }
+
+      .second-level.third-level-displayed {
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0);
+        max-height: 0;
+        transition: scale ease-in-out 0.5s, opacity ease-in-out 0.2s,
+          visibility ease-in-out 0.2s, transform ease-in-out 0.2s,
+          max-height ease-in-out 0.2s;
       }
     `;
   }
@@ -44,7 +62,8 @@ export class CelebrationTrigger extends LitElement {
     return {
       widgetOpened: { type: Boolean },
       emojisDisplayed: { type: Boolean },
-      emojis: { type: Array, reflect: true },
+      emojis: { type: Array },
+      confettiDisabled: { type: Boolean },
     };
   }
 
@@ -68,6 +87,7 @@ export class CelebrationTrigger extends LitElement {
     );
     this.emojis = ['🥳', '🔥'];
     this.emojisDisplayed = false;
+    this.confettiDisabled = false;
   }
 
   _displayWidget() {
@@ -88,44 +108,95 @@ export class CelebrationTrigger extends LitElement {
   // eslint-disable-next-line class-methods-use-this
   _displayConfettis() {
     jsConfetti.addConfetti();
+    const options = {
+      detail: { confettiType: 'confetti' },
+      bubbles: true,
+      composed: true,
+    };
+    this.dispatchEvent(new CustomEvent('confetti', options));
   }
 
   // eslint-disable-next-line class-methods-use-this
   _displayCustomEmojiConfetti(emoji) {
     jsConfetti.addConfetti({ emojis: [emoji] });
+    const options = {
+      detail: { confettiType: emoji },
+      bubbles: true,
+      composed: true,
+    };
+    this.dispatchEvent(new CustomEvent('confetti', options));
   }
 
   render() {
     return html`
       <button
         @click="${this._displayWidget}"
-        class="${this.widgetOpened ? 'opened' : null}"
+        class="${this.widgetOpened ? 'active' : null}"
+        aria-label="${this.widgetOpened
+          ? 'open '
+          : 'close'} the celebration widget"
       >
         🥳
       </button>
       ${this.widgetOpened
-        ? html`<div>
-            <button @click="${() => this._playSound('airHorn')}">📯</button>
-            <button @click="${() => this._playSound('applause')}">👏</button>
-            <button @click="${this._displayConfettis}">🎉</button>
-            ${this.emojis?.length
-              ? html` <button @click="${this._displayEmojis}">🙂</button>
-                  ${this.emojisDisplayed
-                    ? html`<div>
-                        ${this.emojis.map(
-                          emoji => html`
-                            <button
-                              @click="${() =>
-                                this._displayCustomEmojiConfetti(emoji)}"
-                            >
-                              ${emoji}
-                            </button>
-                          `
-                        )}
-                      </div>`
-                    : null}`
-              : null}
-          </div>`
+        ? html`<div
+              class="second-level ${this.emojisDisplayed
+                ? 'third-level-displayed'
+                : null}"
+            >
+              <button
+                @click="${() => this._playSound('airHorn')}"
+                aria-label="trigger the dj air horn sound"
+              >
+                📯
+              </button>
+              <button
+                @click="${() => this._playSound('applause')}"
+                aria-label="trigger the clapping sound"
+              >
+                👏
+              </button>
+              ${!this.confettiDisabled
+                ? html`<button
+                    @click="${this._displayConfettis}"
+                    aria-label="trigger the confetti canon"
+                  >
+                    🎉
+                  </button>`
+                : null}
+              ${!this.confettiDisabled && this.emojis?.length
+                ? html` <button
+                    @click="${this._displayEmojis}"
+                    aria-label="${this.emojisDisplayed
+                      ? 'display '
+                      : 'hide'} the custom emoji confetti trigget buttons"
+                  >
+                    🙂
+                  </button>`
+                : null}
+            </div>
+            ${this.emojisDisplayed
+              ? html`<div id="third-level-container">
+                  <button
+                    @click="${this._displayEmojis}"
+                    class="back"
+                    aria-label="hide the custom emoji confetti trigget buttons"
+                  >
+                    🔙
+                  </button>
+                  ${this.emojis.map(
+                    emoji => html`
+                      <button
+                        @click="${() =>
+                          this._displayCustomEmojiConfetti(emoji)}"
+                        aria-label="trigger the ${emoji} emoji confetti canon"
+                      >
+                        ${emoji}
+                      </button>
+                    `
+                  )}
+                </div>`
+              : null}`
         : null}
     `;
   }
