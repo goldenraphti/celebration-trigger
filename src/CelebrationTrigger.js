@@ -20,6 +20,7 @@ export class CelebrationTrigger extends LitElement {
         transition: 0.05s ease-in-out;
         margin: 3px;
         aspect-ratio: 1;
+        cursor: pointer;
       }
 
       button:is(:hover, :active, :focus) {
